@@ -8,6 +8,7 @@ include:
 install-fluentd:
   pkg.installed:
     - name: {{ fluentd.pkg }}
+    - refresh: {{ fluentd.use_upstream_repo }}
 
 run-fluentd:
   service.running:
