@@ -1,0 +1,22 @@
+{% import_yaml "fluentd/defaults.yaml" as defaults %}
+{% import_yaml "fluentd/osmap.yaml" as osmap %}
+{% import_yaml "fluentd/codenamemap.yaml" as codemap %}
+
+{# get the settings for the os_family grain #}
+{% set osfam = salt['grains.filter_by'](osmap) or {} %}
+{# get the settings for the oscodename grain, os_family data will override
+    oscodename data #}
+{% set oscode = salt['grains.filter_by'](codemap,
+                                         grain='oscodename',
+                                         merge=osfam) or {} %}
+
+{# merge the os family/codename specific data over the defaults #}
+{% do defaults.fluentd.update(oscode) %}
+
+{# merge the pillar:lookup dict into the defaults/os specific dict #}
+{% set lookup = salt['pillar.get']('fluentd:lookup',
+                                   default=defaults.fluentd,
+                                   merge=True) %}
+
+{# merge the actual fluentd pillar into the above combined dict #}
+{% set fluentd = salt['pillar.get']('fluentd', default=lookup, merge=True) %}

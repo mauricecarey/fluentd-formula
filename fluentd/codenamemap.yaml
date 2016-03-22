@@ -1,0 +1,3 @@
+# Example:
+# wheezy:
+#   pkg_repo: deb http://apt.postgresql.org/pub/repos/apt/ wheezy-pgdg main
