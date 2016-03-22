@@ -2,6 +2,8 @@
 
 {% if grains['os_family'] == 'Debian' %}
 install-fluentd-repo:
+  cmd.run:
+    - name: curl https://packages.treasuredata.com/GPG-KEY-td-agent | apt-key add -
   pkgrepo.managed:
     - humanname: fluentd repository
     - name: {{ fluentd.pkg_repo }}
