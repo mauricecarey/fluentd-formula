@@ -1,3 +1,4 @@
 fluentd:
-  pkg: fluentd
-  service: fluentd
+  pkg: td-agent
+  service: td-agent
+  use_upstream_repo: True

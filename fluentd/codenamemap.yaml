@@ -1,3 +1,12 @@
-# Example:
-# wheezy:
-#   pkg_repo: deb http://apt.postgresql.org/pub/repos/apt/ wheezy-pgdg main
+trusty:
+  pkg_repo: deb http://packages.treasuredata.com/2/ubuntu/trusty/ trusty contrib
+precise:
+  pkg_repo: deb http://packages.treasuredata.com/2/ubuntu/precise/ precise contrib
+lucid:
+  pkg_repo: deb http://packages.treasuredata.com/2/ubuntu/lucid/ lucid contrib
+jessie:
+  pkg_repo: deb http://packages.treasuredata.com/2/debian/jessie/ jessie contrib
+wheezy:
+  pkg_repo: deb http://packages.treasuredata.com/2/debian/wheezy/ wheezy contrib
+squeeze:
+  pkg_repo: deb http://packages.treasuredata.com/2/debian/squeeze/ squeeze contrib
