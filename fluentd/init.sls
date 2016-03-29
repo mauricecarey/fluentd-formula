@@ -20,6 +20,26 @@ fluentd-config:
     - user: root
 {% endif %}
 
+{% if "plugins" in fluentd %}
+install-plugin-build-tools:
+  pkg.installed:
+    - pkgs:
+      - make
+      - {{ fluentd.libcurl }}
+    - require:
+      - pkg: {{ fluentd.pkg }}
+
+{% for plugin_name in fluentd.plugins %}
+install-plugin-{{ plugin_name }}:
+  cmd.run:
+    - name: /opt/td-agent/embedded/bin/fluent-gem install {{ plugin_name }}
+    - unless: /opt/td-agent/embedded/bin/fluent-gem list | grep {{ plugin_name }}
+    - require:
+      - pkg: {{ fluentd.pkg }}
+      - pkg: install-plugin-build-tools
+{% endfor %}
+{% endif %}
+
 run-fluentd:
   service.running:
     - enable: true
